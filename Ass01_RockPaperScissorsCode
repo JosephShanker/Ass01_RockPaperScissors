@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class RockPaperScissor {
+    private static char getValidMove(Scanner sc, String player) {
+        char move;
+
+        while (true) {
+            System.out.print(player + ", Please enter your move [R, P, S]: ");
+            move = sc.next().toUpperCase().charAt(0);
+            if (move == 'R' || move == 'P' || move == 'S') {
+                break;
+            } else {
+                System.out.println("Invalid input! Please enter R, P, or S.");
+            }
+        }
+        return move;
+    }
+
+    private static String getResult(char moveA, char moveB) {
+        if (moveA == moveB) {
+            return "It's a tie!";
+        }
+        switch (moveA) {
+            case 'R':
+                return (moveB == 'S') ? "Rock breaks Scissors. Player A wins!" : "Paper covers Rock. Player B wins!";
+            case 'P':
+                return (moveB == 'R') ? "Paper covers Rock. Player A wins!" : "Scissors cuts Paper. Player B wins!";
+            case 'S':
+                return (moveB == 'P') ? "Scissors cuts Paper. Player A wins!" : "Rock breaks Scissors. Player B wins!";
+        }
+        return "";
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char playAgain;
+
+        do {
+            char moveA = getValidMove(sc, "Player A");
+                char moveB = getValidMove(sc, "Player B");
+
+            System.out.println(getResult(moveA, moveB));
+
+            System.out.print("Would you like to play again? [Y/N]: ");
+            playAgain = sc.next().toUpperCase().charAt(0);
+        } while (playAgain == 'Y');
+
+        System.out.println("Thank you for playing!");
+        sc.close();
+    }
+}
